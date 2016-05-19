@@ -47,7 +47,7 @@ Compress one directory recursively.
 *in* - input directory  
 *out* - directory for storing archives
 
-## CopyFilesToAzureTask
+## CopyFilesToAzure
 
 Copy all files in a given directory to Azure storage.  
  
@@ -61,7 +61,7 @@ Clean up old files from local.
 *in* - input directory  
 *retention* - number of versions of one file to be kept
 
-## RunTask
+## Run
 
 Run executable.  
 
