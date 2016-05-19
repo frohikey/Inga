@@ -21,50 +21,50 @@ Example:
  
 # Tasks
 
-Global parameters: 
+Global parameters:  
  
-*type* - type of task 
+*type* - type of task  
 *on* - on which days to run 
 
 ## AzureCleanUp
 
-Clean up old files from Azure storage. 
+Clean up old files from Azure storage.  
  
-*in* - container name;directory 
+*in* - container name;directory  
 *retention* - number of versions of one file to be kept 
 
 ## CompressDirectories
 
-Compress all directories in a given directory as separated archives. Each directory is packed recursively of course. 
+Compress all directories in a given directory as separated archives. Each directory is packed recursively of course.  
  
-*in* - input directory 
+*in* - input directory  
 *out* - directory for storing archives 
 
 ## CompressDirectory
 
-Compress one directory recursively. 
+Compress one directory recursively.  
  
-*in* - input directory 
+*in* - input directory  
 *out* - directory for storing archives
 
 ## CopyFilesToAzureTask
 
-Copy all files in a given directory to Azure storage. 
+Copy all files in a given directory to Azure storage.  
  
-*in* - input directory 
+*in* - input directory  
 *out* - container;"directory" (Azure storage doesn't have directories of course - so take it like a prefix path for all block blobs)
 
 ## LocalCleanUp
 
-Clean up old files from local. 
+Clean up old files from local.  
  
-*in* - input directory 
+*in* - input directory  
 *retention* - number of versions of one file to be kept
 
 ## RunTask
 
-Run executable. 
+Run executable.  
 
-*in* - executable file 
+*in* - executable file  
 *out* - optional arguments
 
