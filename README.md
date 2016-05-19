@@ -68,3 +68,16 @@ Run executable.
 *in* - executable file  
 *out* - optional arguments
 
+## DocumentDb
+
+Backup documentdb documents. This task requires SP from _documentdb-lumenize_ project to by presented in the script collection.  
+
+Check it out: https://raw.githubusercontent.com/lmaccherone/documentdb-lumenize/master/sprocs/cube.string  
+
+Stored producedure must be called _cube_ !
+
+## Todo
+
+- support for multiple Azure storages
+- possibility to configure lumenize sp for documentdb (or even create one)
+- possibility to force deletion even if retention says otherwise (ie. keep 1 but that archive is 6502 days old... so delete it anyway)
