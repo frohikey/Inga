@@ -32,6 +32,7 @@ namespace Inga.Task
             using (var zip = new ZipFile())
             {
                 zip.CompressionLevel = CompressionLevel.BestSpeed;
+                zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
 
                 zip.AddDirectory(di.FullName);
                 var path = Path.Combine(_task.Out, $"{di.Name}_{TimeStamp.Stamp}.zip");
