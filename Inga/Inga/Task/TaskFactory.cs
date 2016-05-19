@@ -22,8 +22,14 @@ namespace Inga.Task
                 case Enums.TaskType.Run:
                     return new RunTask(task, logger);
 
-                case Enums.TaskType.MoveToAzure:
-                    return new MoveToAzureTask(task, logger);
+                case Enums.TaskType.CopyFilesToAzure:
+                    return new CopyFilesToAzureTask(task, logger);
+
+                case Enums.TaskType.LocalCleanUp:
+                    return new LocalCleanUpTask(task, logger);
+
+                case Enums.TaskType.AzureCleanUp:
+                    return new AzureCleanUpTask(task, logger);
 
                 default:
                     throw new Exception($"Task of type {task.Type} cannot be created.");

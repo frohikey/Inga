@@ -18,11 +18,8 @@ namespace Inga.Azure
                 return csa;
             }
         }
-
-        /// <summary>
-        /// Get blob.
-        /// </summary>                
-        public static CloudBlockBlob GetBlob(string container, string filename)
+                  
+        private static CloudBlockBlob GetBlob(string container, string filename)
         {
             var storageAccount = Account;
             var blobClient = storageAccount.CreateCloudBlobClient();

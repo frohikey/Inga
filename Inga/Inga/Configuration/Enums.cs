@@ -10,7 +10,9 @@
             CompressDirectories,
             CompressDirectory,
             Run,
-            MoveToAzure
+            CopyFilesToAzure,
+            LocalCleanUp,
+            AzureCleanUp
         }
 
         /// <summary>
