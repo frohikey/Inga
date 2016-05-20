@@ -2,11 +2,11 @@
 using Inga.Configuration;
 using Inga.Log;
 
-namespace Inga.Task
+namespace Inga.Tasks
 {
     public static class TaskFactory
     {
-        public static ITask Create(Configuration.Task task, ILogger logger)
+        public static ITask Create(Task task, ILogger logger)
         {
             if (task == null)
                 throw new ArgumentNullException(nameof(task));
@@ -30,6 +30,9 @@ namespace Inga.Task
 
                 case Enums.TaskType.AzureCleanUp:
                     return new AzureCleanUpTask(task, logger);
+
+                case Enums.TaskType.DocumentDb:
+                    return new DocumentDbTask(task, logger);
 
                 default:
                     throw new Exception($"Task of type {task.Type} cannot be created.");

@@ -3,23 +3,21 @@ using System.Linq;
 using Inga.Log;
 using Inga.Tools;
 
-namespace Inga.Task
+namespace Inga.Tasks
 {
-    public class LocalCleanUpTask : Task
+    public class LocalCleanUpTask : BaseTask
     {
-        public LocalCleanUpTask(Configuration.Task task, ILogger logger)
-        {
-            _task = task;
-            _logger = logger;
+        public LocalCleanUpTask(Configuration.Task task, ILogger logger) : base(task, logger)
+        {            
         }
 
         public override void Run()
         {
-            var di = new DirectoryInfo(_task.In);
+            var di = new DirectoryInfo(Task.In);
 
             if (!di.Exists)
             {
-                Log($"Directory {_task.In} doesn't exist.");
+                Log($"Directory {Task.In} doesn't exist.");
                 return;
             }            
 
@@ -27,11 +25,11 @@ namespace Inga.Task
 
             if (files.Length == 0)
             {
-                Log($"Directory {_task.In} doesn't contain any files.");
+                Log($"Directory {Task.In} doesn't contain any files.");
                 return;
             }
 
-            if (_task.Retention < 0)
+            if (Task.Retention < 0)
             {
                 Log("Retention ignored. Skipping.");
                 return;
@@ -43,18 +41,18 @@ namespace Inga.Task
             {
                 var stamps = ia.Stamps.OrderBy(x => x);
 
-                if (stamps.Count() > _task.Retention)
+                if (stamps.Count() > Task.Retention)
                 {
-                    var badStamps = ia.Stamps.OrderBy(x => x).Take(stamps.Count() - _task.Retention);
+                    var badStamps = ia.Stamps.OrderBy(x => x).Take(stamps.Count() - Task.Retention);
 
-                    if (_task.Retention == 0)
+                    if (Task.Retention == 0)
                         badStamps = ia.Stamps.ToList();
 
                     foreach (var bs in badStamps)
                     {
                         var fn = Path.GetFileNameWithoutExtension(ia.Filename) + "_" + TimeStamp.GetStamp(bs) + Path.GetExtension(ia.Filename);
 
-                        File.Delete(Path.Combine(_task.In, fn));
+                        File.Delete(Path.Combine(Task.In, fn));
                         Log($"File {fn} deleted from local.");
                     }
                 }

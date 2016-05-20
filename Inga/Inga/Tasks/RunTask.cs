@@ -2,14 +2,12 @@
 using System.IO;
 using Inga.Log;
 
-namespace Inga.Task
+namespace Inga.Tasks
 {
-    public class RunTask : Task
+    public class RunTask : BaseTask
     {
-        public RunTask(Configuration.Task task, ILogger logger)
-        {
-            _task = task;
-            _logger = logger;
+        public RunTask(Configuration.Task task, ILogger logger) : base(task, logger)
+        {            
         }
 
         public override void Run()
@@ -18,21 +16,21 @@ namespace Inga.Task
                             {
                                 CreateNoWindow = false,
                                 UseShellExecute = true,
-                                //WorkingDirectory = Path.GetDirectoryName(_task.In),
-                                FileName = _task.In,
-                                Arguments = _task.Out,
+                                //WorkingDirectory = Path.GetDirectoryName(Task.In),
+                                FileName = Task.In,
+                                Arguments = Task.Out,
                                 WindowStyle = ProcessWindowStyle.Hidden,                                
                             };
 
          
-            Log($"{Path.GetFileName(_task.In)} process started...");
+            Log($"{Path.GetFileName(Task.In)} process started...");
 
             using (var exeProcess = Process.Start(startInfo))
             {
-                exeProcess.WaitForExit();
+                exeProcess?.WaitForExit();
             }
 
-            Log($"{Path.GetFileName(_task.In)} process ended.");
+            Log($"{Path.GetFileName(Task.In)} process ended.");
         }
     }
 }

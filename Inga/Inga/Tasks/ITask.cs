@@ -1,4 +1,4 @@
-﻿namespace Inga.Task
+﻿namespace Inga.Tasks
 {
     public interface ITask
     {

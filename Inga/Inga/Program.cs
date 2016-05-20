@@ -1,14 +1,16 @@
 ﻿using System;
 using Inga.Configuration;
 using Inga.Log;
-using Inga.Task;
+using Inga.Tasks;
 
 namespace Inga
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
+            
+
             var now = DateTime.Now;
             var config = IngaSection.GetConfig();            
             var logger = LoggerFactory.Create(config);
@@ -17,7 +19,7 @@ namespace Inga
 
             foreach (var t in config.Tasks)
             {
-                var tt = (Configuration.Task)t;
+                var tt = (Task)t;
                 var task = TaskFactory.Create(tt, logger);
 
                 try

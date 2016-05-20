@@ -26,5 +26,16 @@ namespace Inga.Configuration
                 return o as Tasks;
             }
         }
+
+        [ConfigurationProperty("connections")]
+        [ConfigurationCollection(typeof(Tasks), AddItemName = "connection")]
+        public Connections Connections
+        {
+            get
+            {
+                var o = this["connections"];
+                return o as Connections;
+            }
+        }
     }
 }

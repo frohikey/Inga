@@ -24,5 +24,10 @@ namespace Inga.Configuration
         [ConfigurationProperty("on", IsRequired = false)]
         [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
         public CommaDelimitedStringCollection On => this["on"] as CommaDelimitedStringCollection;
+
+        [ConfigurationProperty("connection", IsRequired = false)]
+        public string Connection => this["connection"] as string;
+
+        public Connection RealConnection => IngaSection.GetConfig().Connections[Connection];
     }
 }

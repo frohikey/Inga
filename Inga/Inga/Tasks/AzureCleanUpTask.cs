@@ -1,22 +1,21 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using Inga.Azure.Storage;
 using Inga.Log;
 using Inga.Tools;
 
-namespace Inga.Task
+namespace Inga.Tasks
 {
-    public class AzureCleanUpTask : Task
+    public class AzureCleanUpTask : BaseTask
     {
-        public AzureCleanUpTask(Configuration.Task task, ILogger logger)
-        {
-            _task = task;
-            _logger = logger;
+        public AzureCleanUpTask(Configuration.Task task, ILogger logger) : base(task, logger)
+        {            
         }
 
         public override void Run()
         {
-            var containers = _task.In.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            var containers = Task.In.Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (containers.Length != 2)
             {
@@ -24,13 +23,14 @@ namespace Inga.Task
                 return;
             }
 
-            if (_task.Retention < 0)
+            if (Task.Retention < 0)
             {
                 Log("Retention ignored. Skipping.");
                 return;
             }
 
-            var blobs = Azure.Storage.GetBlobs(containers[0], containers[1]);
+            var storage = new Storage(Task.RealConnection);
+            var blobs = storage.GetBlobs(containers[0], containers[1]);
 
             if (blobs.Count == 0)
             {
@@ -44,18 +44,18 @@ namespace Inga.Task
             {
                 var stamps = ia.Stamps.OrderBy(x => x);
 
-                if (stamps.Count() > _task.Retention)
+                if (stamps.Count() > Task.Retention)
                 {
-                    var badStamps = ia.Stamps.OrderBy(x => x).Take(stamps.Count() - _task.Retention).ToList();
+                    var badStamps = ia.Stamps.OrderBy(x => x).Take(stamps.Count() - Task.Retention).ToList();
 
-                    if (_task.Retention == 0)
+                    if (Task.Retention == 0)
                         badStamps = ia.Stamps.ToList();
 
                     foreach (var bs in badStamps)
                     {
                         var fn = Path.GetFileNameWithoutExtension(ia.Filename) + "_" + TimeStamp.GetStamp(bs) + Path.GetExtension(ia.Filename);
 
-                        Azure.Storage.DeleteBlob(containers[0], Path.Combine(containers[1], fn));
+                        storage.DeleteBlob(containers[0], Path.Combine(containers[1], fn));
                         Log($"File {fn} deleted from Azure.");
                     }
                 }

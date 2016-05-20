@@ -12,7 +12,8 @@
             Run,
             CopyFilesToAzure,
             LocalCleanUp,
-            AzureCleanUp
+            AzureCleanUp,
+            DocumentDb
         }
 
         /// <summary>
@@ -21,6 +22,15 @@
         public enum LoggerType
         {
             SimpleLogFile
+        }
+
+        /// <summary>
+        /// Connection types.
+        /// </summary>
+        public enum ConnectionType
+        {
+            Storage,
+            DocumentDb
         }
     }
 }

@@ -4,27 +4,25 @@ using Inga.Tools;
 using Ionic.Zip;
 using Ionic.Zlib;
 
-namespace Inga.Task
+namespace Inga.Tasks
 {
-    public class CompressDirectoryTask : Task
+    public class CompressDirectoryTask : BaseTask
     {                
-        public CompressDirectoryTask(Configuration.Task task, ILogger logger)
-        {
-            _logger = logger;
-            _task = task;
+        public CompressDirectoryTask(Configuration.Task task, ILogger logger) : base(task, logger)
+        {            
         }
 
         public override void Run()
         {
-            var di = new DirectoryInfo(_task.In);
+            var di = new DirectoryInfo(Task.In);
 
             if (!di.Exists)
             {
-                Log($"Directory {_task.In} doesn't exist.");
+                Log($"Directory {Task.In} doesn't exist.");
                 return;
             }
             
-            var od = new DirectoryInfo(_task.Out);
+            var od = new DirectoryInfo(Task.Out);
 
             if (!od.Exists)
                 od.Create();
@@ -35,7 +33,7 @@ namespace Inga.Task
                 zip.UseZip64WhenSaving = Zip64Option.AsNecessary;
 
                 zip.AddDirectory(di.FullName);
-                var path = Path.Combine(_task.Out, $"{di.Name}_{TimeStamp.Stamp}.zip");
+                var path = Path.Combine(Task.Out, $"{di.Name}_{TimeStamp.Stamp}.zip");
                 zip.Save(path);
                 Log($"Directory {di.Name} packed.");
             }
