@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Inga")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Goto10")]
 [assembly: AssemblyProduct("Inga")]
-[assembly: AssemblyCopyright("Copyright © frohikey/Goto10, 2016")]
+[assembly: AssemblyCopyright("Copyright © 2016 frohikey/Goto10")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

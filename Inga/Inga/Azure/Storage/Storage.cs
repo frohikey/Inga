@@ -20,8 +20,8 @@ namespace Inga.Azure.Storage
         {
             var storageAccount = _account;
             var blobClient = storageAccount.CreateCloudBlobClient();
-            var c = blobClient.GetContainerReference(container);
-            var blob = c.GetBlockBlobReference(filename);
+            var cointainer = blobClient.GetContainerReference(container);
+            var blob = cointainer.GetBlockBlobReference(filename);
 
             return blob;
         }

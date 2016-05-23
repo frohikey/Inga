@@ -8,6 +8,9 @@ namespace Inga.Tools
     {
         private static readonly TaskFactory _myTaskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
 
+        /// <summary>
+        /// Run task sync.
+        /// </summary>
         public static TResult RunSync<TResult>(Func<Task<TResult>> func)
         {
             return _myTaskFactory.StartNew(func).Unwrap().GetAwaiter().GetResult();

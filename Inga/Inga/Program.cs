@@ -8,9 +8,7 @@ namespace Inga
     class Program
     {
         static void Main()
-        {
-            
-
+        {            
             var now = DateTime.Now;
             var config = IngaSection.GetConfig();            
             var logger = LoggerFactory.Create(config);

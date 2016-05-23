@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Inga.Log;
 using Inga.Tools;
 using Ionic.Zip;
 using Ionic.Zlib;
+using System.Linq;
 
 namespace Inga.Tasks
 {
@@ -14,15 +16,15 @@ namespace Inga.Tasks
 
         public override void Run()
         {
-            var di = new DirectoryInfo(Task.In);
+            var directoryIn = new DirectoryInfo(Task.In);
 
-            if (!di.Exists)
+            if (!directoryIn.Exists)
             {
                 Log($"Directory {Task.In} doesn't exist.");
                 return;
             }
 
-            var directories = di.GetDirectories();
+            var directories = directoryIn.GetDirectories();
 
             if (directories.Length == 0)
             {
@@ -30,13 +32,17 @@ namespace Inga.Tasks
                 return;
             }
 
-            var od = new DirectoryInfo(Task.Out);
+            var directoryOut = new DirectoryInfo(Task.Out);
 
-            if (!od.Exists)
-                od.Create();
+            if (!directoryOut.Exists)
+                directoryOut.Create();
 
             foreach (var d in directories)
             {
+                if (Task.Skip != null &&
+                    Task.Skip.Cast<string>().Any(skip => skip.Equals(d.Name, StringComparison.OrdinalIgnoreCase)))
+                    continue;
+
                 using (var zip = new ZipFile())
                 {
                     zip.CompressionLevel = CompressionLevel.BestSpeed;
@@ -45,6 +51,7 @@ namespace Inga.Tasks
                     zip.AddDirectory(d.FullName);
                     var path = Path.Combine(Task.Out, $"{d.Name}_{TimeStamp.Stamp}.zip");
                     zip.Save(path);
+
                     Log($"Directory {d.Name} packed.");
                 }
             }

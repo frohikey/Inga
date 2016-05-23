@@ -19,10 +19,10 @@ namespace Inga.Tasks
             var repo = new Repository<Document>(Task.RealConnection);
 
             var documents = repo.GetAll();
-            var di = new DirectoryInfo(Task.Out);
+            var directoryOut = new DirectoryInfo(Task.Out);
 
-            if (!di.Exists)
-                di.Create();
+            if (!directoryOut.Exists)
+                directoryOut.Create();
 
             var fn = Task.RealConnection.Database + "_" + Task.RealConnection.Collection + "_" + TimeStamp.GetStamp(DateTime.Now) + ".json";
             var outFile = Path.Combine(Task.Out, fn);

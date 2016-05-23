@@ -40,20 +40,20 @@ namespace Inga.Tasks
 
             var outArchives = blobs.ToArchives();            
 
-            foreach (var ia in outArchives)
+            foreach (var outArchive in outArchives)
             {
-                var stamps = ia.Stamps.OrderBy(x => x);
+                var stamps = outArchive.Stamps.OrderBy(x => x);
 
                 if (stamps.Count() > Task.Retention)
                 {
-                    var badStamps = ia.Stamps.OrderBy(x => x).Take(stamps.Count() - Task.Retention).ToList();
+                    var badStamps = outArchive.Stamps.OrderBy(x => x).Take(stamps.Count() - Task.Retention).ToList();
 
                     if (Task.Retention == 0)
-                        badStamps = ia.Stamps.ToList();
+                        badStamps = outArchive.Stamps.ToList();
 
                     foreach (var bs in badStamps)
                     {
-                        var fn = Path.GetFileNameWithoutExtension(ia.Filename) + "_" + TimeStamp.GetStamp(bs) + Path.GetExtension(ia.Filename);
+                        var fn = Path.GetFileNameWithoutExtension(outArchive.Filename) + "_" + TimeStamp.GetStamp(bs) + Path.GetExtension(outArchive.Filename);
 
                         storage.DeleteBlob(containers[0], Path.Combine(containers[1], fn));
                         Log($"File {fn} deleted from Azure.");
