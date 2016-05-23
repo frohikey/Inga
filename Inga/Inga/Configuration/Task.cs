@@ -22,6 +22,7 @@ namespace Inga.Configuration
         public int Retention => int.Parse(this["retention"].ToString());
 
         [ConfigurationProperty("skip", IsRequired = false)]
+        [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
         public CommaDelimitedStringCollection Skip => this["skip"] as CommaDelimitedStringCollection;
 
         [ConfigurationProperty("on", IsRequired = false)]
