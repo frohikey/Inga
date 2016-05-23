@@ -12,57 +12,60 @@ https://github.com/goto10hq/Inga/blob/master/Inga/Inga/App.config
 
 Global parameters:  
  
-*type* - type of task  
-*on* - on which days to run 
+_type_ - type of task  
+_on_ - on which days to run 
 
 ## AzureCleanUp
 
 Clean up old files from Azure storage.  
  
-*in* - container name;directory  
-*retention* - number of versions of one file to be kept 
+_in_ - container name;directory  
+_retention_ - number of versions of one file to be kept 
 
 ## CompressDirectories
 
 Compress all directories in a given directory as separated archives. Each directory is packed recursively of course.  
  
-*in* - input directory  
-*out* - directory for storing archives 
+_in_ - input directory  
+_out_ - directory for storing archives 
+*skip (optional)* - skip given directory(ies), comma separated list
 
 ## CompressDirectory
 
 Compress one directory recursively.  
  
-*in* - input directory  
-*out* - directory for storing archives
+_in_ - input directory  
+_out_ - directory for storing archives
 
 ## CopyFilesToAzure
 
 Copy all files in a given directory to Azure storage.  
  
-*in* - input directory  
-*out* - container;"directory" (Azure storage doesn't have directories of course - so take it like a prefix path for all block blobs)
+_in_ - input directory  
+_out_ - container;"directory" (Azure storage doesn't have directories of course - so take it like a prefix path for all block blobs)
+_connection_ - name of the connection string 
 
 ## LocalCleanUp
 
 Clean up old files from local.  
  
-*in* - input directory  
-*retention* - number of versions of one file to be kept
+_in_ - input directory  
+_retention_ - number of versions of one file to be kept
 
 ## Run
 
 Run executable.  
 
-*in* - executable file  
-*out* - optional arguments
+_in_ - executable file  
+_out_ - optional arguments
 
 ## DocumentDb
 
 Backup documentdb documents. At the moment all documents are fetched and saved in one json file.  
 Filename is generated as database_collection_timestamp.json.
 
-*out* - output directory
+_out_ - output directory
+_connection_ - name of the connection string 
 
 ## Todo
 
